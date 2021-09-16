@@ -1,3 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Homework 3
+Assignment 1
+The following is a program to simulate the random deposition of atoms on the surface of a 
+substrate (mirror). The surface is modelled as a square grid and adsorption on each site 
+is random and independent on the number of deposited atoms on the other sites. 
+
+Authors: O. Andreussi and STUDENT
+"""
+# 
+# Parameters and variables
+# 
+# nx, ny : number of adsorption sites along the x and y directions
+# n_sites : total number of adsorption sites on the surface
+# deposition_rate : number of deposited layers per second
+# n_timesteps : number of simulated timesteps, where each timestep correspond
+#               to the adsorption of a single atom on the surface.
+# surface_coverage : collects the number of adsorbed atoms on each surface site
 #
 # Import useful modules
 #
@@ -26,9 +46,9 @@ n_empty_sites=np.zeros(n_timesteps,dtype='int')
 # on the surface of the mirror
 #
 for i in np.arange(0,n_timesteps,1):
-    adsorption_site=(np.random.randint(0,nx),np.random.randint(0,ny))
-    surface_coverage[adsorption_site]+=1
-    n_covered_sites=np.count_nonzero(surface_coverage)
+    adsorption_site=(np.random.randint(0,nx),np.random.randint(0,ny)) # pick a random site on the surface
+    surface_coverage[adsorption_site]+=1 # add an atom to the site
+    n_covered_sites=np.count_nonzero(surface_coverage) # count how many sites have at least one adsorbed atom
     # here we save the time and the number of empty sites
     time[i]=i*dt
     n_empty_sites[i]=n_sites-n_covered_sites
@@ -59,6 +79,8 @@ plt.show()
 #
 # The following lines will generate a 3D visualization of the surface
 # you need to uncomment them (i.e. remove the # symbol at the beginning of the line)
+#
+#from mpl_toolkits import mplot3d
 #fig = plt.figure()
 #ax = plt.axes(projection='3d')
 #x=np.arange(nx)
