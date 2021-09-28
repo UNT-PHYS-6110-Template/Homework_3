@@ -61,14 +61,19 @@ min_coverage=np.min(surface_coverage)
 max_coverage=np.max(surface_coverage)
 bins=np.arange(min_coverage,max_coverage+1)
 plt.hist(surface_coverage.reshape(n_sites,1),density=True,bins=bins,histtype='step')
-p=np.random.poisson(1/n_sites*n_timesteps,1000000)
+alpha=1/n_sites*n_timesteps
+p=np.random.poisson(alpha,1000000)
 plt.hist(p,density=True,bins=bins,histtype='step')
+gaussian=1/np.sqrt(2*np.pi*alpha)*np.exp(-(bins-alpha)**2/2.0/alpha)
+plt.plot(bins,gaussian)
 plt.show()
 # 
 # The following lines will generate a graph of the number of empty sites 
 # as a function of time
 #
 plt.plot(time,n_empty_sites)
+n_empty_sites_analytical=np.exp(-deposition_rate*time)*n_sites
+plt.plot(time,n_empty_sites_analytical)
 plt.show()
 #
 # The following lines will generate a 2D plot of the surface, with darker colors
